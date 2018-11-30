@@ -13,14 +13,14 @@ def lambda_handler(event, context):
     avg = calAverage(sensor1,sensor2,sensor3) 
     print("avg",avg)
     #평균조도에 따른 적정 밝기
-    average = calBrightness(avg)
-    print("average",average)
+    target = calBrightness(avg)
+    print("target",target)
     #조명1의 적정 밝기
-    b1 = sensor1 + setBrightness(sensor1,average)
+    b1 = sensor1 + setBrightness(sensor1,target)
     #조명2의 적정 밝기
-    b2 = sensor2 + setBrightness(sensor2,average)
+    b2 = sensor2 + setBrightness(sensor2,target)
     #조명3의 적정 밝기
-    b3 = sensor3 + setBrightness(sensor3,average)
+    b3 = sensor3 + setBrightness(sensor3,target)
     
     return {'body' : json.dumps(b2)}
     
@@ -45,8 +45,8 @@ def calBrightness(avg):
 
     return brightness
     
-def setBrightness(sensor_value,average):
-    control = average-sensor_value
+def setBrightness(sensor_value,target):
+    control = target-sensor_value
     print("control",control)
     return control
     
